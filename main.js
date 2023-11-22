@@ -3,7 +3,8 @@ const dotenv = require("dotenv")
 const mongoose = require("mongoose");
 
 const adminRouter = require("./Routes/adminrouter")
-
+const employeeRouter = require("./Routes/employeerouter")
+const cors = require('cors')
 const app = express()
 dotenv.config()
 
@@ -17,10 +18,17 @@ mongoose.connect(process.env.DB_URL)
 
 app.use(express.json())
 
-app.use("/",  adminRouter)
+app.use(cors()) 
 
+let corsOptions = {
+    origin: [ 'http://localhost:4500', ]
+};
+
+app.use("/",cors(corsOptions),  adminRouter)
+
+app.use("/",cors (corsOptions), employeeRouter)
 
 //port
 app.listen(4500, (req, res) => {
-    console.log("welcome mvc backend")
+    console.log("welcome office backend")
 })

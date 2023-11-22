@@ -1,6 +1,11 @@
 const express = require("express")
 const admin = require("../Model/adminmodel")
 const router = express.Router()
+const cors = require('cors');
+
+let corsOptions = {
+  origin: [ 'http://localhost:4500', ]
+};
 
 
 //creating admin
@@ -11,28 +16,32 @@ router.post('/admin/create', (req, res) => {
   res.status(201).json(newAdmin);
 });
 
+
 //admin login
 
-router.post( '/admin/login', async(req,res) =>{
+router.post( '/admin/login',cors(corsOptions), async(req,res) =>{
   const Admin = await admin.findOne(req.body);
   if(Admin){
     res.status(201).json(Admin);
   }else{
     res.status(500).json('admin login failed');
+    
   }
 });
+
 
 //get all admins
 
 router.get('/get/admins', async (req, res) => {
   try {
     const allAdmins = await admin.find(); 
-    res.status(200).json(allAdmins);
+    res.status(201).json(allAdmins);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 
 // get admin with id
 
@@ -46,6 +55,7 @@ router.get('/get/admin/:id', async (req, res) => {
   }
 });
 
+
 //admin update with id
 
 router.put( '/admin/update/:id', async (req,res) =>{
@@ -56,6 +66,7 @@ router.put( '/admin/update/:id', async (req,res) =>{
     res.status(500).json(err)
   }
 });
+
 
 //delete admin with id
 
