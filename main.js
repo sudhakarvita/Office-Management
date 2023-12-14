@@ -24,9 +24,9 @@ let corsOptions = {
     origin: [ 'http://localhost:4500', ]
 };
 
-app.use("/",cors(corsOptions),  adminRouter)
+app.use("/admin",cors(corsOptions),  adminRouter)
 
-app.use("/",cors (corsOptions), employeeRouter)
+app.use("/employee",cors (corsOptions), employeeRouter)
 
 //port
 app.listen(4500, (req, res) => {

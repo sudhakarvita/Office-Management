@@ -8,13 +8,7 @@ let corsOptions = {
 };
 
 
-//creating employee
 
-router.post('/employee/create', (req, res) => {
-  const newEmp = new employee(req.body);
-  newEmp.save();
-  res.status(201).json(newEmp);
-});
 
 //employee login
 
@@ -28,7 +22,7 @@ router.post( '/employee/login',cors(corsOptions), async(req,res) =>{
     }
   });
 
-  //get all admins
+  //get all employees
 
 router.get('/get/employees', async (req, res) => {
     try {
@@ -63,7 +57,7 @@ router.put( '/employee/update/:id', async (req,res) =>{
     }
   });
 
-  //delete employee with id
+//delete employee with id
 
 router.delete( '/employee/delete/:id', async (req,res) =>{
     try{
